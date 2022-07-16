@@ -1,0 +1,19 @@
+{
+	"name": "svelte-components",
+	"version": "0.0.1",
+	"license": "Apache License Version 2.0, January 2004",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"package": "svelte-kit package",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "next",
+		"@sveltejs/kit": "next",
+		"svelte": "^3.44.0",
+		"vite": "^3.0.0"
+	},
+	"type": "module"
+}

@@ -1,23 +1,34 @@
 <script>
 	import CloseButton from './sub/CloseButton.svelte';
 
+	/**
+	 * Is the BottomOverlay currently shown or not?
+	 */
 	export let visible = true;
+	/**
+	 * Should the BottomOverlay be closed manually?
+	 */
 	export let hasCloseButton = false;
+	/**
+	 * How long should the BottomOverlay be shown
+	 */
+	export let duration = 5123;
+	$: duration = hasCloseButton && duration == 5123 ? 10000 : 5000;
 
-	if (!hasCloseButton) {
-		setTimeout(() => {
-			visible = false;
-			console.log("Called!");
-		}, 5000);
+	// If is visible and doesn't have a close
+	// button, discard BottomOverlay automatically
+	$: if (visible && !hasCloseButton) {
+		setTimeout(() => visible = false, duration);
 	}
 </script>
 
 {#if visible}
-	<div class={"bottom-overlay" + (hasCloseButton ? "hasCloseButton" : "")}>
+	<div class={"bottom-overlay" + (hasCloseButton ? " has-close-button" : "")}>
 		<slot />
 		{#if hasCloseButton}
-			<CloseButton class="close-button" bind:visible />
-		<!-- {:else}
+		<CloseButton bind:visible />
+		<!-- TODO: Show time until it's closed
+		{:else}
 			<Timer duration={5} /> -->
 		{/if}
 	</div>
@@ -36,25 +47,25 @@
 		line-height: 1.3;
 		transform: translateX(-50%);
 
-		color: var(--white) !important;
+		color: var(--white);
 		background: var(--blue);
+	}
+
+	.bottom-overlay :global(.close-button) {
+		position: absolute;
+		top: 1.4rem;
+		right: 1.4rem;
 	}
 
 	@media screen and (prefers-color-scheme: dark) {
 		.bottom-overlay {
-			background: var(--white);
 			color: var(--blue);
+			background: var(--white);
 		}
 	}
 
 	.has-close-button {
 		padding-right: 6.5rem;
-	}
-
-	.close-button {
-		position: absolute;
-		top: 1.5rem;
-		right: 1.5rem;
 	}
 
 	@media (max-width: 912px) {
@@ -75,13 +86,13 @@
 			transform: none;
 		}
 
-		.has-close-button {
-			padding-right: 7rem;
-		}
-
-		.close-button {
+		.bottom-overlay :global(.close-button) {
 			top: 2rem;
 			right: 2rem;
+		}
+
+		.has-close-button {
+			padding-right: 7rem;
 		}
 	}
 </style>

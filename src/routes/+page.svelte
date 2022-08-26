@@ -1,7 +1,7 @@
 <script>
-	import BottomOverlay from "../Components/BottomOverlay.svelte";
-	import HexSpinner from "../Loading/HexSpinner.svelte";
-	import Spinner from "../Loading/Spinner.svelte";
+	import BottomOverlay from "$lib/components/BottomOverlay.svelte";
+	import HexSpinner from "$lib/components/Loading/HexSpinner.svelte";
+	import Spinner from "$lib/components/Loading/Spinner.svelte";
 
 	let visible = true;
 </script>
